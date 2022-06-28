@@ -1,4 +1,4 @@
-const CollgeModel = require("../models/collegeModel")
+const CollegeModel = require("../models/collegeModel")
 
 const isValid = function (value) {
     if (typeof value == "undefined" || value == null) return false;
@@ -31,7 +31,7 @@ const createCollege= async function(req,res){
             res.status(400).send({ status: false, msg: "LogoLink is required" });
             return
         }
-        let createdCollege=await CollgeModel.create(collegeDetails)
+        let createdCollege=await CollegeModel.create(collegeDetails)
             return res.status(201).send({status:true,data:createdCollege, msg:"College Created Successfully"})
         
     }catch(err){

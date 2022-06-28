@@ -1,12 +1,13 @@
 const CollegeModel = require("../models/collegeModel")
 
+let validString = /\d/;
 const isValid = function (value) {
     if (typeof value == "undefined" || value == null) return false;
     if (typeof value == "string" && value.trim().length === 0) return false;
     return true;
 }
 const isValidReqestBody = function (requestBody) {
-    return Object.keys(requestBody).length > 0;
+    return Object.keys(requestBody).length !== 0;
 }
 
 
@@ -18,12 +19,12 @@ const createCollege= async function(req,res){
             res.status(400).send({ status: false, message: `${collegeDetails} No College Detail Received` })
             return
         }
-        const {name,fullname,logoLink}=collegeDetails
-        if (!isValid(name)) {
+        const {name,fullName,logoLink}=collegeDetails
+        if (!isValid(name) || validString.test(name)) {
             res.status(400).send({ status: false, msg: "Name is required" });
             return
         }
-        if (!isValid(fullname)) {
+        if (!isValid(fullName)  || validString.test(fullName)) {
             res.status(400).send({ status: false, msg: "FullName is required" });
             return
         }

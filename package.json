@@ -18,7 +18,10 @@
   },
   "homepage": "https://github.com/ranjeetsingh23/project2_group-54#readme",
   "dependencies": {
+    "express": "^4.18.1",
     "module": "^1.2.5",
-    "node": "^18.4.0"
+    "moongose": "^1.0.0",
+    "node": "^18.4.0",
+    "nodemon": "^2.0.18"
   }
 }

@@ -38,7 +38,6 @@ const createCollege= async function(req,res){
         
         }
         let allReadyExisted= await CollegeModel.findOne({$or:[{fullName:collegeDetails.fullName},{logoLink:collegeDetails.logoLink}]})
-        console.log(allReadyExisted)
             if(allReadyExisted){
             return res.status(400).send({ status: false, msg: `${fullName} or ${logoLink} already exist` })
         }

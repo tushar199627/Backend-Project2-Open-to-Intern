@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const ObjectId = mongoose.Schema.Types.ObjectId;
-const {isEmail} = require('validator');
+
 
 const internSchema = new mongoose.Schema({
     name: {type: String,
@@ -12,7 +12,6 @@ const internSchema = new mongoose.Schema({
         type: String,
         required: true,
         trim:true,
-       validate:  [ isEmail, 'invalid email' ],
         unique:true,
         lowercase: true
     },
@@ -32,6 +31,6 @@ const internSchema = new mongoose.Schema({
         type: Boolean,
         default: false,
       }
-    }, { timestamps: true });
+    });
     
     module.exports = mongoose.model('Intern', internSchema); 

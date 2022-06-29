@@ -51,13 +51,13 @@ exports.createCollege = async function (req, res) {
         }
         //after clearing all the validation document will be created
         let createdCollege = await collegeModel.create(collegeDetails)
-        let collegeAndAllIntern = {    //storing all data in an object
+        let college = {    //storing all data in an object
             "name": createdCollege.name,
             "fullName": createdCollege.fullName,
             "logoLink": createdCollege.logoLink,
             "isDeleted": createdCollege.isDeleted
         }
-        return res.status(201).send({ status: true, data: collegeAndAllIntern, msg: "College Created Successfully" })
+        return res.status(201).send({ status: true, data: college, msg: "College Created Successfully" })
 
     } catch (err) {
         console.log(err.message)

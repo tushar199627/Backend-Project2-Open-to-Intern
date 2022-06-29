@@ -12,6 +12,7 @@ const isValidReqestBody = function (requestBody) {
     return Object.keys(requestBody).length !== 0;
 }
 
+
 exports.createIntern = async function (req, res) {
     try {
         let internDetails = req.body
@@ -42,8 +43,9 @@ exports.createIntern = async function (req, res) {
             res.status(400).send({ status: false, message: "Please provide valid mobile number" });
             return;
         }
+
         let uniqueValue = await internModel.findOne({ $or: [{ email: internDetails.email }, { mobile: internDetails.mobile }] })
-        if (uniqueValue) return res.status(400).send({ status: false, msg: "email or mobile no already exist" })
+        if (uniqueValue) return res.status(400).send({ status: false, msg: "email or mobile already Used" })
 
         if (!isValid(collegeName)) {
             res.status(400).send({ status: false, msg: " college name is required" });
@@ -72,6 +74,3 @@ exports.createIntern = async function (req, res) {
 
 
 
-
-
-// module.exports.createIntern=createIntern

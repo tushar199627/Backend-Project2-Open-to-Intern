@@ -27,6 +27,7 @@ exports.createCollege= async function(req,res){
             res.status(400).send({ status: false, msg: "Name is required and Enter Name in Correct Format" });
             return
         }
+
         if (!isValid(fullName)  || validString.test(fullName)) {
             res.status(400).send({ status: false, msg: "FullName is required and Enter FullName in Correct Format" });
             return
@@ -36,7 +37,7 @@ exports.createCollege= async function(req,res){
             return
         }
         
-        let allReadyExisted= await collegeModel.findOne({fullName:collegeDetails.fullName})
+        let allReadyExisted= await collegeModel.findOne({name:collegeDetails.fullName})
             if(allReadyExisted){
             return res.status(400).send({ status: false, msg: `${fullName} already exist` })
         }

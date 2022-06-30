@@ -1,6 +1,6 @@
 
 const internModel = require("../models/internModel.js")
-const collegeModel = require("../models/collegeModel")
+const collegeModel = require("../models/collegeModel.js")
 const validateEmail = require("email-validator")  //import email-validator package
 
 let validString = /^[ a-z ]+$/i; //To validate String using RegEx
@@ -10,9 +10,7 @@ const isValid = function (value) {   //function to check entered data is valid o
     if (typeof value == "string" && value.trim().length === 0) return false;
     return true;
 }
-const isValidReqestBody = function (requestBody) {   //function to check is there any key is present in request body
-    return Object.keys(requestBody).length !== 0;
-}
+
 
 //===================================================[API:FOR CREATING INTERN DB]===========================================================
 
@@ -21,7 +19,7 @@ exports.createIntern = async function (req, res) {
         if (Object.keys(req.query).length == 0) {
             let internDetails = req.body;  //getting data from request body
 
-            if (!isValidReqestBody(internDetails)) { //validating is there any data inside request body
+            if (Object.keys(internDetails).length == 0) { //validating is there any data inside request body
                 res.status(400).send({ status: false, message: " No Intern Detail Received" });
                 return
             }

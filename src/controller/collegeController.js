@@ -1,19 +1,17 @@
-const collegeModel = require("../models/collegeModel");
+const collegeModel = require("../models/collegeModel.js");
 const internModel = require("../models/internModel.js");
 
 
 let validUrl = /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/
 
 let validString = /^[ a-z ]+$/i; //To validate String using RegEx
-
+let validName = /\d/;
 const isValid = function (value) {   //function to check entered data is valid or not
     if (typeof value == "undefined" || value == null) return false;
     if (typeof value == "string" && value.trim().length === 0) return false;
     return true;
 }
-const isValidReqestBody = function (requestBody) {  //function to check is there any key is present in request body
-    return Object.keys(requestBody).length !== 0;
-}
+
 
 //===================================================[API:FOR CREATING COLLEGE DB]===========================================================
 
@@ -22,7 +20,7 @@ exports.createCollege = async function (req, res) {
         if (Object.keys(req.query).length == 0) {
             let collegeDetails = req.body   //getting data from request body
 
-            if (!isValidReqestBody(collegeDetails)) {  //validating is there any data inside request body
+            if (Object.keys(collegeDetails).length == 0) {  //validating is there any data inside request body
                 res.status(400).send({ status: false, message: "No College Detail Received" })
                 return
             }
@@ -34,7 +32,7 @@ exports.createCollege = async function (req, res) {
                 res.status(400).send({ status: false, msg: "Name is required and Enter Name in Correct Format" });
                 return
             }
-            if (!isValid(fullName)) {
+            if (!isValid(fullName) || validName.test(fullName)) {
                 res.status(400).send({ status: false, msg: "FullName is required and Enter FullName in Correct Format" });
                 return
             }
@@ -51,7 +49,8 @@ exports.createCollege = async function (req, res) {
                 return res.status(400).send({ status: false, msg: `${name} already exist` });
             }
             //after clearing all the validation document will be created
-            let createdCollege = await collegeModel.create(collegeDetails)
+            let createdCollege = await (await collegeModel.create(collegeDetails))
+           
             let college = {    //storing all data in an object
                 "name": createdCollege.name,
                 "fullName": createdCollege.fullName,

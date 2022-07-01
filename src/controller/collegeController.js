@@ -99,7 +99,7 @@ exports.getIntern = async function (req, res) {
             "interns": Intern
         }
 
-        res.status(200).send({ data: collegeAndAllIntern }) //sending data in response
+        res.status(200).send({ data: collegeAndAllIntern, msg:"Successfull"}) //sending data in response
     } catch (error) {
         res.status(500).send({ status: false, message: error.message })
     }

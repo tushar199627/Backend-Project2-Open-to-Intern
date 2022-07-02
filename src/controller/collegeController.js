@@ -49,7 +49,7 @@ exports.createCollege = async function (req, res) {
                 return res.status(400).send({ status: false, msg: `${name} already exist` });
             }
             //after clearing all the validation document will be created
-            let createdCollege = await (await collegeModel.create(collegeDetails))
+            let createdCollege = await collegeModel.create(collegeDetails)
            
             let college = {    //storing all data in an object
                 "name": createdCollege.name,
